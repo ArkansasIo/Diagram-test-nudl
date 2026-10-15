@@ -1,0 +1,40 @@
+# Illustrative NUDL-style example; the starter runtime does not parse this file yet.
+
+MASTER ApplicationLogic {
+    CONFIG {
+        execution = SEQUENTIAL
+        error_policy = STOP_ON_FAILURE
+    }
+
+    TYPES {
+        type UserId = INTEGER
+        type Permission = STRING
+    }
+
+    MODULE Authentication {
+        SUBMODULE Credentials {
+            CLASS UserAccount {
+                TYPE AccessLevel = INTEGER
+                ARRAY Permissions {
+                    "read"
+                    "write"
+                    "admin"
+                }
+            }
+        }
+    }
+
+    LOGIC Main {
+        IF user.active == TRUE {
+            BRANCH ActiveUser {
+                IF "read" IN user.permissions {
+                    EXECUTE LoadDashboard
+                }
+            }
+        } ELSE {
+            EXECUTE DenyAccess
+        }
+    }
+
+    EXECUTE Main
+}
