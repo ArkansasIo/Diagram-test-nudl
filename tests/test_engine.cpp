@@ -1,5 +1,7 @@
 #include "mlta/engine.hpp"
 
+#include <algorithm>
+#include <cstdint>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
